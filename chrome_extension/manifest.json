@@ -1,0 +1,14 @@
+﻿{
+  "name": "ParatranzDeepL",
+  "description": "Translate new strings with DeepL on Paratranz",
+  "version": "0.0.1",
+  "manifest_version": 3,
+  "content_scripts": [
+    {
+      "js": ["scripts/translate_with_deepl.js"],
+      "matches": [
+        "https://paratranz.cn/projects/*/strings*"
+      ]
+    }
+  ]
+}
