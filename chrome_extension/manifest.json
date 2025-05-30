@@ -3,6 +3,18 @@
   "description": "Translate new strings with DeepL on Paratranz",
   "version": "0.0.1",
   "manifest_version": 3,
+  "host_permissions": [
+    "https://api-free.deepl.com/*"
+  ],
+  "permissions": [
+    "declarativeNetRequest",
+    "declarativeNetRequestWithHostAccess",
+    "webRequest",
+    "webRequestBlocking"
+  ],
+  "background": {
+    "service_worker": "scripts/background.js"
+  },
   "content_scripts": [
     {
       "js": ["scripts/translate_with_deepl.js"],
