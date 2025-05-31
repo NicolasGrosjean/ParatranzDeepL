@@ -34,7 +34,7 @@ function getOriginalText() {
     }
 }
 
-function getTranslationDiv() {
+function getTranslationTA() {
     const translationDivs = document.getElementsByClassName(
         "translation form-control"
     );
@@ -47,9 +47,9 @@ function getTranslationDiv() {
     }
 }
 
-function getTranslationText(translationDiv) {
-    // translationDiv is a <textarea>
-    return translationDiv.value;
+function getTranslationText(translationTA) {
+    // translationTA is a <textarea>
+    return translationTA.value;
 }
 
 async function getDeepLHeader() {
@@ -188,12 +188,15 @@ async function computeTranslation(
 function writeTranslation(translationDiv, translationText) {
     // translationDiv is a <textarea>
     translationDiv.value = translationText;
+    // Simulate user input event
+    const event = new Event('input', { bubbles: true });
+    translationDiv.dispatchEvent(event);
     console.info("Translation text written to the textarea:", translationText);
 }
 
 async function main() {
-    const translationDiv = getTranslationDiv();
-    const translationText = getTranslationText(translationDiv);
+    const translationTA = getTranslationTA();
+    const translationText = getTranslationText(translationTA);
     if (translationText != "") {
         console.info("Translation text is not empty, DeepL is not called.");
         return;
@@ -211,5 +214,5 @@ async function main() {
         await getSourceLanguage(),
         await getTargetLanguage()
     );
-    writeTranslation(translationDiv, newTranslationText);
+    writeTranslation(translationTA, newTranslationText);
 }
