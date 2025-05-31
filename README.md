@@ -2,7 +2,9 @@
 
 > Translates new strings with DeepL
 
-<!-- TODO Put a gif of video showing usage -->
+## Demo
+
+![Demo GIF](docs/Demo.gif)
 
 ## Install
 
