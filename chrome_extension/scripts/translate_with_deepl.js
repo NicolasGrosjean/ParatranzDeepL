@@ -1,6 +1,7 @@
 ﻿const waitingTimeBeforeStart = 500; // milliseconds
 const waitingTimeBetweenTwoCalls = 2000; // milliseconds
-const deepLApiEndpoint = "https://api-free.deepl.com/v2";
+const deepLFreeApiEndpoint = "https://api-free.deepl.com/v2";
+const deepLProApiEndpoint = "https://api.deepl.com/v2";
 let deepL_enabled = true;
 let isRunning = false;
 
@@ -75,6 +76,33 @@ async function getDeepLHeader() {
     });
 }
 
+async function getDeepLEndpoint() {
+    return new Promise((resolve) => {
+        chrome.storage.local.get(["apiTypeValue"], (result) => {
+            const apiType = result.apiTypeValue;
+            if (!apiType) {
+                console.error("API type not found in extension storage.");
+                alert(
+                    "API type not found. Please set it in the extension options, then refresh the page."
+                );
+                deepL_enabled = false;
+                resolve("");
+            } else {
+                if (apiType === "free") {
+                    resolve(deepLFreeApiEndpoint);
+                } else if (apiType === "pro") {
+                    resolve(deepLProApiEndpoint);
+                } else {
+                    console.error("Unknown API type:", apiType);
+                    alert("Unknown API type: " + apiType);
+                    deepL_enabled = false;
+                    resolve("");
+                }
+            }
+        });
+    });
+}
+
 async function getSourceLanguage() {
     return new Promise((resolve) => {
         chrome.storage.local.get(["sourceLngValue"], (result) => {
@@ -115,9 +143,13 @@ async function getTargetLanguage() {
     });
 }
 
-
-async function computeTranslation(originalText, sourceLanguage, targetLanguage) {
+async function computeTranslation(
+    originalText,
+    sourceLanguage,
+    targetLanguage
+) {
     const headers = await getDeepLHeader();
+    const deepLApiEndpoint = await getDeepLEndpoint();
     return new Promise((resolve, reject) => {
         chrome.runtime.sendMessage(
             {
@@ -174,8 +206,10 @@ async function main() {
     }
     console.debug("Original text:", originalText);
 
-    const newTranslationText = await computeTranslation(originalText, await getSourceLanguage(), await getTargetLanguage());
+    const newTranslationText = await computeTranslation(
+        originalText,
+        await getSourceLanguage(),
+        await getTargetLanguage()
+    );
     writeTranslation(translationDiv, newTranslationText);
-
-    // TODO Set the DeepL API endpoint in the extension options
 }

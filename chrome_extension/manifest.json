@@ -4,7 +4,8 @@
   "version": "0.0.1",
   "manifest_version": 3,
   "host_permissions": [
-    "https://api-free.deepl.com/*"
+    "https://api-free.deepl.com/*",
+    "https://free.deepl.com/*"
   ],
   "permissions": [
     "declarativeNetRequest",

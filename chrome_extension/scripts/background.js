@@ -1,6 +1,6 @@
 // Listen for messages from content scripts or popup
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if (request.action === "deepl_translate" && request.headers) {
+    if (request.action === "deepl_translate" && request.headers && request.endpoint) {
         const deepL_fetch_options = {
             method: "POST",
             headers: request.headers,
