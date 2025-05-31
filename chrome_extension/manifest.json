@@ -10,7 +10,8 @@
     "declarativeNetRequest",
     "declarativeNetRequestWithHostAccess",
     "webRequest",
-    "webRequestBlocking"
+    "webRequestBlocking",
+    "storage"
   ],
   "background": {
     "service_worker": "scripts/background.js"
@@ -22,5 +23,8 @@
         "https://paratranz.cn/projects/*/strings*"
       ]
     }
-  ]
+  ],
+  "action": {
+    "default_popup": "index.html"
+  }
 }

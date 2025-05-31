@@ -1,11 +1,6 @@
 ﻿const waitingTimeBeforeStart = 500; // milliseconds
 const waitingTimeBetweenTwoCalls = 2000; // milliseconds
 const deepLApiEndpoint = "https://api-free.deepl.com/v2";
-const deepLHearder = {
-    Accept: "application/json",
-    "Content-Type": "application/json",
-    Authorization: "DeepL-Auth-Key PUT YOUR KEY HERE",
-};
 let deepL_enabled = true;
 let isRunning = false;
 
@@ -56,12 +51,37 @@ function getTranslationText(translationDiv) {
     return translationDiv.value;
 }
 
+async function getDeepLHeader() {
+    return new Promise((resolve) => {
+        chrome.storage.local.get(["deepLTokenValue"], (result) => {
+            const deepLToken = result.deepLTokenValue;
+            if (!deepLToken) {
+                console.error(
+                    "DeepL API token not found in extension storage."
+                );
+                alert(
+                    "DeepL API token not found. Please set it in the extension options, then refresh the page."
+                );
+                deepL_enabled = false;
+                resolve({});
+            } else {
+                resolve({
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                    Authorization: "DeepL-Auth-Key " + deepLToken,
+                });
+            }
+        });
+    });
+}
+
 async function computeTranslation(originalText, targetLanguage) {
+    const headers = await getDeepLHeader();
     return new Promise((resolve, reject) => {
         chrome.runtime.sendMessage(
             {
                 action: "deepl_translate",
-                headers: deepLHearder,
+                headers: headers,
                 endpoint: deepLApiEndpoint,
                 originalText,
                 targetLanguage,
@@ -94,14 +114,14 @@ async function computeTranslation(originalText, targetLanguage) {
 function writeTranslation(translationDiv, translationText) {
     // translationDiv is a <textarea>
     translationDiv.value = translationText;
-    console.debug("Translation text written to the textarea:", translationText);
+    console.info("Translation text written to the textarea:", translationText);
 }
 
 async function main() {
     const translationDiv = getTranslationDiv();
     const translationText = getTranslationText(translationDiv);
     if (translationText != "") {
-        console.debug("Translation text is not empty.");
+        console.info("Translation text is not empty, DeepL is not called.");
         return;
     }
 
@@ -115,7 +135,6 @@ async function main() {
     const newTranslationText = await computeTranslation(originalText, "FR");
     writeTranslation(translationDiv, newTranslationText);
 
-    // TODO Set its DeepL API Key in the extension options
     // TODO Set the language to translate to in the extension options
     // TODO Set the DeepL API endpoint in the extension options
 }
