@@ -10,7 +10,15 @@ Subscribe to the Chrome extension **TODO** on a Chromium web browser (Brave, Ope
 
 ## Configuration
 
-Open the extension and filled the form with your DeepL API Token.
+Open the extension pop up and filled the form with
+
+- Source language, the language of the text to translate ([available values here](https://developers.deepl.com/docs/api-reference/translate/openapi-spec-for-text-translation))
+- Target language, the language of the translation ([available values here](https://developers.deepl.com/docs/api-reference/translate/openapi-spec-for-text-translation))
+- DeepL API Token
+
+<!-- TODO Put an image the extension popup -->
+
+Save the changes, close the pop up and if you are on Paratranz, refresh the page.
 
 ## Developer install
 

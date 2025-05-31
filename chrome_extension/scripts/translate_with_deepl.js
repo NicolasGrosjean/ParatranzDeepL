@@ -75,7 +75,48 @@ async function getDeepLHeader() {
     });
 }
 
-async function computeTranslation(originalText, targetLanguage) {
+async function getSourceLanguage() {
+    return new Promise((resolve) => {
+        chrome.storage.local.get(["sourceLngValue"], (result) => {
+            const sourceLng = result.sourceLngValue;
+            if (!sourceLng) {
+                console.error(
+                    "Source language not found in extension storage."
+                );
+                alert(
+                    "Source language not found. Please set it in the extension options, then refresh the page."
+                );
+                deepL_enabled = false;
+                resolve({});
+            } else {
+                resolve(sourceLng);
+            }
+        });
+    });
+}
+
+async function getTargetLanguage() {
+    return new Promise((resolve) => {
+        chrome.storage.local.get(["targetLngValue"], (result) => {
+            const targetLng = result.targetLngValue;
+            if (!targetLng) {
+                console.error(
+                    "Target language not found in extension storage."
+                );
+                alert(
+                    "Target language not found. Please set it in the extension options, then refresh the page."
+                );
+                deepL_enabled = false;
+                resolve({});
+            } else {
+                resolve(targetLng);
+            }
+        });
+    });
+}
+
+
+async function computeTranslation(originalText, sourceLanguage, targetLanguage) {
     const headers = await getDeepLHeader();
     return new Promise((resolve, reject) => {
         chrome.runtime.sendMessage(
@@ -84,6 +125,7 @@ async function computeTranslation(originalText, targetLanguage) {
                 headers: headers,
                 endpoint: deepLApiEndpoint,
                 originalText,
+                sourceLanguage,
                 targetLanguage,
             },
             (response) => {
@@ -132,9 +174,8 @@ async function main() {
     }
     console.debug("Original text:", originalText);
 
-    const newTranslationText = await computeTranslation(originalText, "FR");
+    const newTranslationText = await computeTranslation(originalText, await getSourceLanguage(), await getTargetLanguage());
     writeTranslation(translationDiv, newTranslationText);
 
-    // TODO Set the language to translate to in the extension options
     // TODO Set the DeepL API endpoint in the extension options
 }

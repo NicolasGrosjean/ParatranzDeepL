@@ -1,8 +1,76 @@
 ﻿<html>
-  <body>
-    <h1>ParatranzDeepL</h1>
-    <textarea id="deepLToken" rows="5" cols="40" placeholder="Enter your DeepL Token"></textarea>
-    <button id="saveBtn">Save</button>
-    <script src="scripts/index.js"></script>
-  </body>
+    <head>
+        <title>ParatranzDeepL</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background: #f5f6fa;
+                margin: 40px;
+                color: #222;
+            }
+            h1 {
+                color: #3b5998;
+                margin-bottom: 24px;
+            }
+            .form-group {
+                margin-bottom: 18px;
+                display: flex;
+                align-items: center;
+            }
+            label {
+                width: 140px;
+                font-weight: bold;
+                margin-right: 10px;
+            }
+            textarea {
+                resize: none;
+                padding: 6px 8px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                font-size: 15px;
+                background: #fff;
+                transition: border-color 0.2s;
+            }
+            textarea:focus {
+                border-color: #3b5998;
+                outline: none;
+            }
+            #saveBtn {
+                background: #3b5998;
+                color: #fff;
+                border: none;
+                padding: 10px 28px;
+                border-radius: 4px;
+                font-size: 16px;
+                cursor: pointer;
+                margin-top: 10px;
+                transition: background 0.2s;
+            }
+            #saveBtn:hover {
+                background: #29487d;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>ParatranzDeepL</h1>
+
+        <div class="form-group">
+            <label for="sourceLng">Source Language:</label>
+            <textarea id="sourceLng" rows="1" cols="2" placeholder="XX"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="targetLng">Target Language:</label>
+            <textarea id="targetLng" rows="1" cols="2" placeholder="XX"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="deepLToken">DeepL Token:</label>
+            <textarea id="deepLToken" rows="1" cols="40" placeholder="Enter your DeepL Token"></textarea>
+        </div>
+
+        <button id="saveBtn">Save</button>
+        <label id="saveLbl"></label>
+        <script src="scripts/index.js"></script>
+    </body>
 </html>

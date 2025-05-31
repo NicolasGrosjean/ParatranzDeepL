@@ -6,6 +6,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             headers: request.headers,
             body: JSON.stringify({
                 text: [request.originalText],
+                source_lang: request.sourceLanguage,
                 target_lang: request.targetLanguage,
             }),
         };
