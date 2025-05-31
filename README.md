@@ -6,6 +6,8 @@
 
 ![Demo GIF](docs/Demo.gif)
 
+[Click here](docs/Demo.mp4) to open the demo as a video.
+
 ## Install
 
 Subscribe to the Chrome extension **TODO** on a Chromium web browser (Brave, Opera, Google Chrome, Edge, or ...)
