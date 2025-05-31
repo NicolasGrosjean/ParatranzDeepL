@@ -30,7 +30,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
                 if (translationText) {
                     console.debug("DeepL API raw result is:", translationText);
                     translationText = translationText.translations[0].text;
-                    // TODO Remove the "translated by deepl" message
                     sendResponse({ translation: translationText });
                 }
             })
