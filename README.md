@@ -14,9 +14,10 @@ Open the extension pop up and filled the form with
 
 - Source language, the language of the text to translate ([available values here](https://developers.deepl.com/docs/api-reference/translate/openapi-spec-for-text-translation))
 - Target language, the language of the translation ([available values here](https://developers.deepl.com/docs/api-reference/translate/openapi-spec-for-text-translation))
-- DeepL API Token
+- API Type (Free or Pro)
+- DeepL API Token according the API type
 
-<!-- TODO Put an image the extension popup -->
+![Configuration Screenshot](docs/Configuration.jpg)
 
 Save the changes, close the pop up and if you are on Paratranz, refresh the page.
 
