@@ -1,7 +1,7 @@
 ﻿{
   "name": "ParatranzDeepL",
   "description": "Translate new strings with DeepL on Paratranz",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "icons": {
     "16": "images/icon-16.png",
     "32": "images/icon-32.png",
@@ -14,10 +14,6 @@
     "https://free.deepl.com/*"
   ],
   "permissions": [
-    "declarativeNetRequest",
-    "declarativeNetRequestWithHostAccess",
-    "webRequest",
-    "webRequestBlocking",
     "storage"
   ],
   "background": {
