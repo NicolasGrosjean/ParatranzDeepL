@@ -10,7 +10,7 @@
 
 ## Install
 
-Subscribe to the Chrome extension **TODO** on a Chromium web browser (Brave, Opera, Google Chrome, Edge, or ...)
+Subscribe to [the Chrome extension](https://chromewebstore.google.com/detail/paratranzdeepl/inghghdkggehaibanbmfbhkjkopbkloi) on a Chromium web browser (Brave, Opera, Google Chrome, Edge, or ...)
 
 ## Configuration
 
